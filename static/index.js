@@ -10,6 +10,7 @@ let clickDrag = []
 
 function startCanvas() {
   canvas = document.getElementById("canvas")
+  canvas.style.backgroundColor = "lightblue";
   context = canvas.getContext("2d")
 
   context.strokeStyle = "#000000"
@@ -115,12 +116,10 @@ function getPixels() {
 
 function addDataAction() {
   let pixels = getPixels()
-  document.getElementById("pixels").value = pixels
-  document.getElementById("add-data-form").submit()
+  console.log(pixels)
 }
 
 function practiceAction() {
   let pixels = getPixels()
-  document.getElementById("pixels").value = pixels
-  document.getElementById("practice-form").submit()
+  console.log(pixels)
 }
