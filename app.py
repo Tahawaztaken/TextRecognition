@@ -10,17 +10,17 @@ def index():
 @app.route('/add-data', methods=['GET', 'POST'])
 def add_data():
     if request.method == 'GET':
-        return ""
+        return render_template("addData.html")
     elif request.method == 'POST':
-        return "2"
+        return render_template("addData.html")
 
 #PRACTICE PAGE
 @app.route('/practice', methods=['GET', 'POST'])
 def practice():
     if request.method == 'GET':
-        return ""
+        return render_template("practice.html")
     elif request.method == 'POST':
-        return "2"
+        return render_template("practice.html")
 
 
 
