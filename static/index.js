@@ -1,5 +1,4 @@
-// adapted from http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
-// for mobile & touch https://stackoverflow.com/questions/17656292/html5-canvas-support-in-mobile-phone-browser
+// tutorial from davis busteed on youtube
 
 let canvas
 let context
