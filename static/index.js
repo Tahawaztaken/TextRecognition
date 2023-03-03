@@ -115,7 +115,8 @@ function getPixels() {
 
 function addDataAction() {
   let pixels = getPixels()
-  console.log(pixels)
+  document.getElementById("pixels").value = pixels
+  document.getElementById("add-data-form").submit()
 }
 
 function practiceAction() {

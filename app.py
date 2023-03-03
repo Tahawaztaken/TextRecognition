@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from bidict import bidict
 from random import choice
 
@@ -23,7 +23,12 @@ def add_data():
         random_letter = choice(list(ENCODER.keys()))
         return render_template("addData.html", letter=random_letter)
     elif request.method == 'POST':
-        return render_template("addData.html")
+        label = request.form['letter']
+        print(label)
+        pixels = request.form['pixels']
+        pixels = pixels.split(',')
+        print(len(pixels))
+        return redirect(url_for('add_data'))
 
 #PRACTICE PAGE
 @app.route('/practice', methods=['GET', 'POST'])
