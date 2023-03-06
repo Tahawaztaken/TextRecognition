@@ -1,8 +1,10 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, session
 from bidict import bidict
 from random import choice
+import numpy as np
 
 app = Flask(__name__)
+app.secret_key = 'superdupersafekey'
 
 ENCODER = bidict({
     'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6,
@@ -14,20 +16,32 @@ ENCODER = bidict({
 
 @app.route('/')
 def index():
+    session.clear()
     return render_template("index.html")
+
+
 
 #ADD DATA PAGE
 @app.route('/add-data', methods=['GET', 'POST'])
 def add_data():
     if request.method == 'GET':
+        response_message = session.get('response_message', '')
         random_letter = choice(list(ENCODER.keys()))
-        return render_template("addData.html", letter=random_letter)
+        return render_template("addData.html", letter=random_letter, response_message=response_message)
     elif request.method == 'POST':
         label = request.form['letter']
-        print(label)
+        labels = np.load("data/labels.npy")
+        labels = np.append(labels, label)
+        np.save("data/labels.npy", labels)
+
         pixels = request.form['pixels']
         pixels = pixels.split(',')
-        print(len(pixels))
+        img = np.array(pixels).astype(float).reshape(1, 50, 50)
+        imgs = np.load("data/images.npy")
+        imgs = np.vstack([imgs, img])
+        np.save("data/images.npy", imgs)
+
+        session['response_message'] = f"[{label}] was added to the training dataset."
         return redirect(url_for('add_data'))
 
 #PRACTICE PAGE
